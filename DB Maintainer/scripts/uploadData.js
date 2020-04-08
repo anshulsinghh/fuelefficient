@@ -19,8 +19,8 @@ function uploadData(pool) {
         let mpg = row.comb08
         let epa_id = row.id
 
-        let query = `REPLACE INTO vehicles (year, make, model, variation, mpg, epa_id) VALUES(${year}, "${make}", "${model}", "${variation}", ${mpg}, ${epa_id})`
-        pool.query(query, (err, results, fields) => {
+        let sqlQuery = `REPLACE INTO vehicles (year, make, model, variation, mpg, epa_id) VALUES(${year}, "${make}", "${model}", "${variation}", ${mpg}, ${epa_id})`
+        pool.query(sqlQuery, (err, results, fields) => {
           if (err) {
             reject()
           }

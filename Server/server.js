@@ -17,10 +17,6 @@ app.listen(3000, () => {
   console.log("Server is up and listening on Port 3000.")
 })
 
-app.get("/", (req, res) => {
-  res.send("Hello World.")
-})
-
 app.get("/api/v1.0/years", (req, res) => {
 
 })
@@ -29,32 +25,19 @@ app.get("/api/v1.0/makes/:year", (req, res) => {
 
 })
 
-app.get("/api/v1.0/models/:year/:make", (req, res) => {
-
-})
-
-app.get("/api/v1.0/model-variations", (req, res) => {
+app.get("/api/v1.0/models", (req, res) => {
   let year = req.query.year
   let make = req.query.make
-  let model = req.query.model
 
-  if (year === undefined || make == undefined || model == undefined) {
+  if (typeof year !== 'string' || typeof make !== 'string') {
     res.status(400)
-    res.send('Please specify a year, make, and model as parameters.')
-    res.end()
-    return
-  }
-
-  if (typeof year !== 'string' || typeof make !== 'string' || typeof model !== 'string') {
-    console.log(typeof year)
-    res.status(400)
-    res.send('Please format the year, make, and model parameters as strings.')
+    res.send('Please specify a year and make as string parameters.')
     res.end()
     return
   }
   
-  let query = `SELECT variation, epa_id FROM vehicles WHERE year=${year} AND make=${make} AND model=${model}`
-  pool.query(query, (err, results, fields) => {
+  let sqlQuery = `SELECT DISTINCT model FROM vehicles WHERE year=${year} AND make=${make}`
+  pool.query(sqlQuery, (err, results, fields) => {
     if (err) {
       res.status(500)
       res.send("SQL query failed.")
@@ -62,7 +45,42 @@ app.get("/api/v1.0/model-variations", (req, res) => {
       return
     }
 
-    res.json(results)
+    let output = []
+    for (var i = 0; i < results.length; i++) {
+      output.push(results[i].model)
+    }
+
+    res.json(output)
+  })
+})
+
+app.get("/api/v1.0/model-variations", (req, res) => {
+  let year = req.query.year
+  let make = req.query.make
+  let model = req.query.model
+
+  if (typeof year !== 'string' || typeof make !== 'string' || typeof model !== 'string') {
+    res.status(400)
+    res.send('Please specify a year, make, and model as string parameters.')
+    res.end()
+    return
+  }
+  
+  let sqlQuery = `SELECT variation, epa_id FROM vehicles WHERE year=${year} AND make=${make} AND model=${model}`
+  pool.query(sqlQuery, (err, results, fields) => {
+    if (err) {
+      res.status(500)
+      res.send("SQL query failed.")
+      res.end()
+      return
+    }
+
+    let output = []
+    for (var i = 0; i < results.length; i++) {
+      output.push(results[i].variation)
+    }
+
+    res.json(output)
   })
 })
 
