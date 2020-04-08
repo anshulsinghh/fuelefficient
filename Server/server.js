@@ -18,11 +18,50 @@ app.listen(3000, () => {
 })
 
 app.get("/api/v1.0/years", (req, res) => {
+  let sqlQuery = `SELECT DISTINCT year FROM vehicles`
+  pool.query(sqlQuery, (err, results, fields) => {
+    if (err) {
+      res.status(500)
+      res.send("SQL query failed.")
+      res.end()
+      return
+    }
 
+    let output = []
+    for (var i = 0; i < results.length; i++) {
+      output.push(results[i].year)
+    }
+
+    res.json(output)
+  })
 })
 
-app.get("/api/v1.0/makes/:year", (req, res) => {
+app.get("/api/v1.0/makes", (req, res) => {
+  let year = req.query.year
 
+  if (typeof year !== 'string') {
+    res.status(400)
+    res.send('Please specify a year as a string parameter.')
+    res.end()
+    return
+  }
+  
+  let sqlQuery = `SELECT DISTINCT make FROM vehicles WHERE year=${year}`
+  pool.query(sqlQuery, (err, results, fields) => {
+    if (err) {
+      res.status(500)
+      res.send("SQL query failed.")
+      res.end()
+      return
+    }
+
+    let output = []
+    for (var i = 0; i < results.length; i++) {
+      output.push(results[i].make)
+    }
+
+    res.json(output)
+  })
 })
 
 app.get("/api/v1.0/models", (req, res) => {
