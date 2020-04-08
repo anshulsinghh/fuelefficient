@@ -9,7 +9,7 @@ function uploadData(pool) {
     .pipe(csv.parse({ headers: true }))
     .on('error', error => console.error(error))
     .on('data', (row) => {
-      if (row.comb08) {
+      if (row.comb08 && row.fuelType != "Electricity") {
         activeQueries++;
 
         let year = row.year
