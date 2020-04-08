@@ -1,0 +1,17 @@
+{
+  "name": "fuelefficient-server",
+  "version": "1.0.0",
+  "description": "A RESTful API, which supports the Fuel Efficient client. Fuel Efficient is a website which lets users know how much emissions their car produces in a given year. This API offers the client crucial information regarding a car, such as the amount of emissions produced in a given year - and cars in a similar price range that produce the same amount of emissions.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Anshul Singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0"
+  }
+}
