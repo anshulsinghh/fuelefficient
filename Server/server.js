@@ -34,9 +34,6 @@ app.get("/api/v1.0/models/:year/:make", (req, res) => {
 })
 
 app.get("/api/v1.0/model-variations", (req, res) => {
-  //req.params.model
-  console.log(req.query.year)
-
   let year = req.query.year
   let make = req.query.make
   let model = req.query.model
@@ -44,6 +41,7 @@ app.get("/api/v1.0/model-variations", (req, res) => {
   if (year === undefined || make == undefined || model == undefined) {
     res.status(400)
     res.send('Please specify a year, make, and model as parameters.')
+    res.end()
     return
   }
 
@@ -51,13 +49,21 @@ app.get("/api/v1.0/model-variations", (req, res) => {
     console.log(typeof year)
     res.status(400)
     res.send('Please format the year, make, and model parameters as strings.')
+    res.end()
     return
   }
   
+  let query = `SELECT variation, epa_id FROM vehicles WHERE year=${year} AND make=${make} AND model=${model}`
+  pool.query(query, (err, results, fields) => {
+    if (err) {
+      res.status(500)
+      res.send("SQL query failed.")
+      res.end()
+      return
+    }
 
-  res.send("Success")
-
-
+    res.json(results)
+  })
 })
 
 app.get("/api/v1.0/data/:vehicleid", (req, res) => {
