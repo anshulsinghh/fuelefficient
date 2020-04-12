@@ -12,6 +12,10 @@ let extractCSV = require('./scripts/extractCSV.js')
 let deleteFile = require("./scripts/deleteFile.js")
 let uploadData = require("./scripts/uploadData.js")
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function updateDataset() {
   console.log("Downloading datasest from the EPA.")
   await downloadDataset()
@@ -21,6 +25,9 @@ async function updateDataset() {
 
   console.log("Extracted CSV dataset file, now deleting download zip file.")
   await deleteFile("./download.zip")
+
+  console.log("Sleeping for 5 seconds, to fully load the CSV's rows.")
+  await sleep(5000)
 
   console.log("Parsing the CSV dataset for vehicle data, and uploading to MySQL table.")
   await uploadData(pool)
