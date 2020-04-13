@@ -15,7 +15,7 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [ 3000 ],
+	"forwardPorts": [ 3000, 4000 ],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "npm install --prefix ./Server && npm install --prefix ./DB_Maintainer && npm install --prefix ./Client"
