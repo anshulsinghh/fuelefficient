@@ -16,7 +16,7 @@ const pool = mysql.createPool({
 
 module.exports = pool
 
-//Start the API on port 3000
-app.listen(3000, () => {
-  console.log("Server is up and listening on Port 3000.")
+//Start the API on port 4000
+app.listen(4000, () => {
+  console.log("Server is up and listening on Port 4000.")
 })
