@@ -1,10 +1,11 @@
-import axios from 'axios';
-const url = 'https://localhost:4000/api/v1.0'
+import axios from 'axios'
+const url = 'http://localhost:4000/api/v1.0'
 
-const fetchYears = async () => {
+export const fetchYears = async () => {
   try {
-    const response = await axios.get(url + '/years')
+    const { data } = await axios.get(url + "/years")
+    return data
   } catch (error) {
-
+    
   }
 }
