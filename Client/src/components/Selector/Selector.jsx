@@ -1,56 +1,78 @@
 import React from 'react'
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
+import IndividualSelector from './IndividualSelector'
 
-const darkTheme = createMuiTheme({
-  palette: {
-    type: 'dark',
-  },
-});
+import { fetchYears, fetchMakes} from '../../api'
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    palette: {
-      type: 'dark',
-    },
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-    type: 'dark',
-  },
-}));
 
-const Selector = (props) => {
-  const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+class Selector extends React.Component {
+  state = {
+    years: {},
+    makes: {},
+    models: {},
+    variations: {},
+    efficiency: {},
 
-  console.log(props)
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Age</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  )
+    selected_year: '',
+    selected_make: '',
+    selected_model: '',
+    selected_variation: '',
+
+    year_selector_disabled: true,
+    make_selector_disabled: true,
+    model_selector_disabled: true,
+    variation_selector_disabled: true
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.year_selector = React.createRef();
+    this.make_selector = React.createRef();
+  }
+
+  async componentDidMount() {
+    const fetchedYears = await fetchYears()
+    this.setState({years: fetchedYears})
+    this.setState({year_selector_disabled: false})
+  }
+
+
+  async yearSelected(newYear) {
+    this.make_selector.current.clearSelectedItem()
+
+    this.setState({make_selector_disabled: true})
+    const fetchedMakes = await fetchMakes(newYear)
+    console.log(fetchedMakes)
+    this.setState({makes: fetchedMakes})
+    this.setState({make_selector_disabled: false})
+  }
+
+  makeSelected(newMake) {
+    console.log(newMake)
+  }
+
+  render() {
+    return (
+      <>
+        <IndividualSelector ref={this.year_selector}
+                            disabled={this.state.year_selector_disabled} 
+                            data={this.state.years} 
+                            styleguide={{minWidth: 80}} 
+                            label={"Years"}
+                            callback={(newYear) => this.yearSelected(newYear)}>
+        </IndividualSelector>
+
+        <IndividualSelector ref={this.make_selector}
+                            disabled={this.state.make_selector_disabled} 
+                            data={this.state.makes} 
+                            styleguide={{minWidth: 200}} 
+                            label={"Makes"}
+                            callback={this.makeSelected}>
+        </IndividualSelector>
+      </>
+    )
+  }
 }
 
 export default Selector
