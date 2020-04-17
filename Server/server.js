@@ -1,9 +1,11 @@
 const morgan = require('morgan')   // Used to monitor GET and POST requests
 const mysql = require('mysql2/promise')
 const express = require('express') // Used to setup RESTful API routes
+const cors = require('cors')
 const app = express()
 
 app.use(morgan('short'))
+app.use(cors())
 
 app.use(require('./Routes'))
 
