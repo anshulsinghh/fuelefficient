@@ -18,3 +18,21 @@ export const fetchMakes = async (year) => {
     
   }
 }
+
+export const fetchModels = async (year, make) => {
+  try {
+    const { data } = await axios.get(`${url}/models?year=${year}&make="${make}"`)
+    return data
+  } catch (error) {
+    
+  }
+}
+
+export const fetchVariations = async (year, make, model) => {
+  try {
+    const { data } = await axios.get(`${url}/model-variations?year=${year}&make="${make}"&model="${model}"`)
+    return data
+  } catch (error) {
+    
+  }
+}
