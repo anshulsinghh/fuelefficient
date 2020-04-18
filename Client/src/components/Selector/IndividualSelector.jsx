@@ -19,17 +19,7 @@ class IndividualSelector extends React.Component {
   async handleChange(event) {
     await this.setState({selectedItem: event.target.value})
     this.props.callback(this.state.selectedItem)
-    // const fetchedMakes = await fetchMakes(event.target.value)
-    // this.setState({makes: fetchedMakes})
-    // console.log(this.state.makes)
   }
-
-
-  // componentDidUpdate() {
-  //   if (this.props.disabled) {
-  //     this.setState({selectedItem: ""})
-  //   }
-  // }
 
   clearSelectedItem() {
     this.setState({selectedItem: ""})
@@ -37,7 +27,7 @@ class IndividualSelector extends React.Component {
 
   render() {
     var items = <div></div>
-    if (!this.props.disabled) {
+    if (!this.props.disabled && this.props.data != null) {
       items = Object.entries(this.props.data).reverse().map(data => <MenuItem key = {data[0]} value={data[1]}>{data[1]}</MenuItem>)
     }
 
@@ -56,6 +46,3 @@ class IndividualSelector extends React.Component {
 }
 
 export default IndividualSelector
-
-
-//Data, Disabled, StyleGuide, Label, callback
