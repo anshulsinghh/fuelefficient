@@ -25,13 +25,25 @@ router.get("/fuel-data", (req, res) => {
       return
     }
 
-    let output = []
-    for (var i = 0; i < results.length; i++) {
-      output.push(results[i].mpg)
-    }
+    let output = [results[0].mpg]
 
-    res.json(output)
+    let out = {"mpg": results[0].mpg,
+               "100 miles": getData(100, results[0].mpg),
+               "1 year": getData(13474, results[0].mpg),
+               "Lifetime": getData(150000, results[0].mpg)
+              }
+    res.json(out)
   })
 })
+
+function getData(miles, mpg) {
+  gallons_used = miles/mpg
+  co2_emitted = gallons_used * 19.64
+
+  return {"CO2 emitted": co2_emitted,
+          "Household": co2_emitted/1250,
+          "Tree": co2_emitted/2000,
+          "People breathing in a day": co2_emitted/2.3}
+}
 
 module.exports = router
