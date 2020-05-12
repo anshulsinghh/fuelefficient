@@ -1,15 +1,18 @@
 import React from 'react'
 
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
+import Stepper from '@material-ui/core/Stepper'
+import Step from '@material-ui/core/Step'
+import StepLabel from '@material-ui/core/StepLabel'
+//import Button from '@material-ui/core/Button';
 
-import IndividualSelector from './IndividualSelector'
-// import Stepper from './Stepper'
+import ItemSelector from './ItemSelector'
 
 import { fetchYears, fetchMakes, fetchModels, fetchVariations} from '../../api'
 
+const YEAR_ID = 1
+const MAKE_ID = 2
+const MODEL_ID = 3
+const VARIATION_ID = 4
 
 class Selector extends React.Component {
   state = {
@@ -31,16 +34,16 @@ class Selector extends React.Component {
 
     current_step: 0,
 
-    orientation: "horizontal"
+    orientation: "horizontal",
   }
-
+  
   constructor(props) {
     super(props)
 
-    this.year_selector = React.createRef();
-    this.make_selector = React.createRef();
-    this.model_selector = React.createRef();
-    this.variation_selector = React.createRef();
+    this.year_selector = React.createRef()
+    this.make_selector = React.createRef()
+    this.model_selector = React.createRef()
+    this.variation_selector = React.createRef()
   }
 
   async componentDidMount() {
@@ -53,83 +56,53 @@ class Selector extends React.Component {
   }
 
   updateDimensions() {
-    if(window.innerWidth < 1000) {
+    if(window.innerWidth < 1100) {
       this.setState({ orientation : "vertical"})
     } else {
       this.setState({ orientation : "horizontal"})
     }
   }
 
-  setStep(newStep) {
-    this.setState({current_step: newStep})
-  }
+  async newSelection(id, selection) {
+    this.setState({current_step: id})
 
-  async yearSelected(newYear) {
-    this.make_selector.current.clearSelectedItem()
-    this.model_selector.current.clearSelectedItem()
-    this.variation_selector.current.clearSelectedItem()
+    if (id <= YEAR_ID) { this.make_selector.current.clearSelectedItem(); this.setState({make_selector_disabled: true}) }
+    if (id <= MAKE_ID) { this.model_selector.current.clearSelectedItem(); this.setState({model_selector_disabled: true}) }
+    if (id <= MODEL_ID) { this.variation_selector.current.clearSelectedItem(); this.setState({variation_selector_disabled: true}) }
 
-    this.setState({make_selector_disabled: true, model_selector_disabled:true, variation_selector_disabled:true})
+    switch(id) {
+      case YEAR_ID:
+        const fetchedMakes = await fetchMakes(selection)
+        this.setState({makes: fetchedMakes})
+        this.setState({selected_year: selection})
+        this.setState({make_selector_disabled: false})
+        break
 
-    const fetchedMakes = await fetchMakes(newYear)
-    this.setState({makes: fetchedMakes})
+      case MAKE_ID:
+        const fetchedModels = await fetchModels(this.state.selected_year, selection)
+        this.setState({models: fetchedModels})
+        this.setState({selected_make: selection})
+        this.setState({model_selector_disabled: false})   
+        break
 
-    this.setState({make_selector_disabled: false})
+      case MODEL_ID:
+        const fetchedVariations = await fetchVariations(this.state.selected_year, this.state.selected_make, selection)
+        this.setState({variations: fetchedVariations})
+        this.setState({selected_model: selection})
+        this.setState({variation_selector_disabled: false})   
+        break
 
-    this.setState({selected_year: newYear})
+      case VARIATION_ID:
+        this.setState({selected_variation: selection})
+        break
+        
+      default:
+    }
 
-    this.setStep(1)
-  }
-
-  async makeSelected(newMake) {
-    this.model_selector.current.clearSelectedItem()
-    this.variation_selector.current.clearSelectedItem()
-
-    this.setState({model_selector_disabled: true, variation_selector_disabled:true})
-
-    const fetchedModels = await fetchModels(this.state.selected_year, newMake)
-    this.setState({models: fetchedModels})
-
-    this.setState({model_selector_disabled: false})
-
-    this.setState({selected_make: newMake})
-
-    this.setStep(2)
-  }
-
-  async modelSelected(newModel) {
-    this.variation_selector.current.clearSelectedItem()
-
-    this.setState({variation_selector_disabled:true})
-
-    const fetchedVariations = await fetchVariations(this.state.selected_year, this.state.selected_make, newModel)
-    this.setState({variations: fetchedVariations})
-
-    this.setState({variation_selector_disabled: false})
-
-    this.setState({selected_model: newModel})
-
-    this.setStep(3)
-  }
-
-  variationSelected(newVariation) {
-    this.setState({selected_variation: newVariation})
-
-    this.setStep(4)
-  }
-
-  handleResize() {
-    console.log("WOOO")
+    this.props.callback(id === VARIATION_ID)
   }
 
   render() {
-    // let width = window.innerWidth
-    // let orientation = "horizontal"
-
-    // if (width < 700) {
-    //   orientation = "vertical"
-    // }
-
     return (
       <>
           <div style={{width: '75%'}}>
@@ -138,53 +111,51 @@ class Selector extends React.Component {
               <Step key={"Select the car's year"}>
                 <StepLabel>{"Select the car's year"}</StepLabel>
 
-                <IndividualSelector ref={this.year_selector}
+                <ItemSelector ref={this.year_selector}
                                     disabled={this.state.year_selector_disabled} 
                                     data={this.state.years} 
                                     styleguide={{minWidth: 170, "marginBottom": 10}} 
                                     label={"Years"}
-                                    callback={(newYear) => this.yearSelected(newYear)}>
-                 </IndividualSelector>
+                                    callback={(newYear) => this.newSelection(YEAR_ID, newYear)}>
+                </ItemSelector>
               </Step>
 
               <Step key={"Select the car's make"}>
                 <StepLabel>{"Select the car's make"}</StepLabel>
 
-                <IndividualSelector ref={this.make_selector}
-                                    disabled={this.state.make_selector_disabled} 
-                                    data={this.state.makes} 
-                                    styleguide={{minWidth: 180, "marginBottom": 10}} 
-                                    label={"Makes"}
-                                    callback={(newMake) => this.makeSelected(newMake)}>
-                </IndividualSelector>
+                <ItemSelector label={"Makes"}
+                              ref={this.make_selector}
+                              disabled={this.state.make_selector_disabled} 
+                              data={this.state.makes} 
+                              styleguide={{minWidth: 180, "marginBottom": 10}} 
+                              callback={(newMake) => this.newSelection(MAKE_ID ,newMake)}>
+                </ItemSelector>
               </Step>
 
               <Step key={"Select the car's model"}>
                 <StepLabel>{"Select the car's model"}</StepLabel>
                 
-                <IndividualSelector ref={this.model_selector}
-                                    disabled={this.state.model_selector_disabled} 
-                                    data={this.state.models} 
-                                    styleguide={{minWidth: 180, "marginBottom": 10}} 
-                                    label={"Models"}
-                                    callback={(newModel) => this.modelSelected(newModel)}>
-                </IndividualSelector>
+                <ItemSelector label={"Models"}
+                              ref={this.model_selector}
+                              disabled={this.state.model_selector_disabled} 
+                              data={this.state.models} 
+                              styleguide={{minWidth: 180, "marginBottom": 10}} 
+                              callback={(newModel) => this.newSelection(MODEL_ID, newModel)}>
+                </ItemSelector>
               </Step>
-
+              
               <Step key={"Select the model variation"}>
                 <StepLabel>{"Select the model variation"}</StepLabel>
                 
-                
-                <IndividualSelector ref={this.variation_selector}
+                <ItemSelector label={"Variations"} ref={this.variation_selector}
                               disabled={this.state.variation_selector_disabled} 
                               data={this.state.variations} 
                               styleguide={{minWidth: 200, "marginBottom": 10}} 
-                              label={"Variations"}
-                              callback={(newVariation) => this.variationSelected(newVariation)}>
-                </IndividualSelector>
+                              callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)}>
+                </ItemSelector>
               </Step>
+              
             </Stepper>
-            
           </div>
       </>
     )
