@@ -13,11 +13,15 @@ class App extends React.Component {
 
   }
 
+  enableButton(button_enabled) {
+    console.log(button_enabled)
+  }
+
   render() {
     return (
       <>
         <Title/>
-        <Selector/>
+        <Selector callback={(button_enabled) => this.enableButton(button_enabled)}/>
       </>
     )
   }
