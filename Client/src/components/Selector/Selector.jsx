@@ -1,18 +1,38 @@
 import React from 'react'
 
-import Stepper from '@material-ui/core/Stepper'
-import Step from '@material-ui/core/Step'
-import StepLabel from '@material-ui/core/StepLabel'
-//import Button from '@material-ui/core/Button';
+import { ThemeProvider } from "@material-ui/styles"
+//import {purple, green} from "@material-ui/core/colors"
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  createMuiTheme
+} from '@material-ui/core'
 
 import ItemSelector from './ItemSelector'
 
-import { fetchYears, fetchMakes, fetchModels, fetchVariations} from '../../api'
+import { fetchYears, fetchMakes, fetchModels, fetchVariations } from '../../api'
 
 const YEAR_ID = 1
 const MAKE_ID = 2
 const MODEL_ID = 3
 const VARIATION_ID = 4
+
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: '#44bd32',
+    },
+    secondary: {
+      main: '#0652DD',
+    },
+    background: {
+      default: '#ffffff'
+    }
+  }
+});
 
 class Selector extends React.Component {
   state = {
@@ -31,6 +51,7 @@ class Selector extends React.Component {
     make_selector_disabled: true,
     model_selector_disabled: true,
     variation_selector_disabled: true,
+    go_button_disabled: true,
 
     current_step: 0,
 
@@ -56,7 +77,7 @@ class Selector extends React.Component {
   }
 
   updateDimensions() {
-    if(window.innerWidth < 1100) {
+    if(window.innerWidth < 850) {
       this.setState({ orientation : "vertical"})
     } else {
       this.setState({ orientation : "horizontal"})
@@ -69,6 +90,7 @@ class Selector extends React.Component {
     if (id <= YEAR_ID) { this.make_selector.current.clearSelectedItem(); this.setState({make_selector_disabled: true}) }
     if (id <= MAKE_ID) { this.model_selector.current.clearSelectedItem(); this.setState({model_selector_disabled: true}) }
     if (id <= MODEL_ID) { this.variation_selector.current.clearSelectedItem(); this.setState({variation_selector_disabled: true}) }
+    if (id <= VARIATION_ID) { this.setState({go_button_disabled: true}) }
 
     switch(id) {
       case YEAR_ID:
@@ -94,6 +116,7 @@ class Selector extends React.Component {
 
       case VARIATION_ID:
         this.setState({selected_variation: selection})
+        this.setState({go_button_disabled: false})
         break
         
       default:
@@ -102,9 +125,22 @@ class Selector extends React.Component {
     this.props.callback(id === VARIATION_ID)
   }
 
+  buttonClicked() {
+    console.log("GO clicked")
+
+    this.setState({year_selector_disabled: true})
+    this.setState({make_selector_disabled: true})
+    this.setState({model_selector_disabled: true})
+    this.setState({variation_selector_disabled: true})
+    this.setState({go_button_disabled: true})
+    
+  }
+
   render() {
     return (
       <>
+      <ThemeProvider theme={theme}>
+
           <div style={{width: '75%'}}>
             <Stepper activeStep={this.state.current_step} orientation={this.state.orientation}>
 
@@ -114,7 +150,7 @@ class Selector extends React.Component {
                 <ItemSelector ref={this.year_selector}
                                     disabled={this.state.year_selector_disabled} 
                                     data={this.state.years} 
-                                    styleguide={{minWidth: 170, "marginBottom": 10}} 
+                                    styleguide={{minWidth: 170, marginBottom: 10}} 
                                     label={"Years"}
                                     callback={(newYear) => this.newSelection(YEAR_ID, newYear)}>
                 </ItemSelector>
@@ -127,7 +163,7 @@ class Selector extends React.Component {
                               ref={this.make_selector}
                               disabled={this.state.make_selector_disabled} 
                               data={this.state.makes} 
-                              styleguide={{minWidth: 180, "marginBottom": 10}} 
+                              styleguide={{minWidth: 180, marginBottom: 10}} 
                               callback={(newMake) => this.newSelection(MAKE_ID ,newMake)}>
                 </ItemSelector>
               </Step>
@@ -139,7 +175,7 @@ class Selector extends React.Component {
                               ref={this.model_selector}
                               disabled={this.state.model_selector_disabled} 
                               data={this.state.models} 
-                              styleguide={{minWidth: 180, "marginBottom": 10}} 
+                              styleguide={{minWidth: 180, marginBottom: 10}} 
                               callback={(newModel) => this.newSelection(MODEL_ID, newModel)}>
                 </ItemSelector>
               </Step>
@@ -150,13 +186,19 @@ class Selector extends React.Component {
                 <ItemSelector label={"Variations"} ref={this.variation_selector}
                               disabled={this.state.variation_selector_disabled} 
                               data={this.state.variations} 
-                              styleguide={{minWidth: 200, "marginBottom": 10}} 
+                              styleguide={{minWidth: 200, marginBottom: 10}} 
                               callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)}>
                 </ItemSelector>
               </Step>
-              
+
+              <>
+                <Button onClick={ () => this.buttonClicked() } style={{maxWidth: 200, marginLeft: 5, textTransform: "none"}} variant="contained" color="primary" size="large" disabled={this.state.go_button_disabled}>Go!</Button>
+              </>
             </Stepper>
+            
           </div>
+      
+      </ThemeProvider>   
       </>
     )
   }
