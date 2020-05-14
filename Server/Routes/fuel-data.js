@@ -43,7 +43,7 @@ function getData(miles, mpg) {
   return {"CO2 emitted": co2_emitted,
           "Household": co2_emitted/1250,
           "Tree": co2_emitted/2000,
-          "People breathing in a day": co2_emitted/2.3}
+          "Flights from SD to PHX": co2_emitted/15829.51}
 }
 
 module.exports = router
