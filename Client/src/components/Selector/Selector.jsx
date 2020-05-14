@@ -1,38 +1,12 @@
 import React from 'react'
 
-import { ThemeProvider } from "@material-ui/styles"
-//import {purple, green} from "@material-ui/core/colors"
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  createMuiTheme
-} from '@material-ui/core'
+import { Stepper, Step, StepLabel, Button } from '@material-ui/core'
 
 import ItemSelector from './ItemSelector'
 
-import { fetchYears, fetchMakes, fetchModels, fetchVariations } from '../../api'
+import { fetchYears, fetchMakes, fetchModels, fetchVariations, fetchFuelData } from '../../api'
 
-const YEAR_ID = 1
-const MAKE_ID = 2
-const MODEL_ID = 3
-const VARIATION_ID = 4
-
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: '#44bd32',
-    },
-    secondary: {
-      main: '#0652DD',
-    },
-    background: {
-      default: '#ffffff'
-    }
-  }
-});
+const YEAR_ID = 1, MAKE_ID = 2, MODEL_ID = 3, VARIATION_ID = 4
 
 class Selector extends React.Component {
   state = {
@@ -40,7 +14,6 @@ class Selector extends React.Component {
     makes: {},
     models: {},
     variations: {},
-    efficiency: {},
 
     selected_year: '',
     selected_make: '',
@@ -77,7 +50,7 @@ class Selector extends React.Component {
   }
 
   updateDimensions() {
-    if(window.innerWidth < 850) {
+    if(window.innerWidth < 900) {
       this.setState({ orientation : "vertical"})
     } else {
       this.setState({ orientation : "horizontal"})
@@ -125,81 +98,85 @@ class Selector extends React.Component {
     this.props.callback(id === VARIATION_ID)
   }
 
-  buttonClicked() {
-    console.log("GO clicked")
-
-    this.setState({year_selector_disabled: true})
-    this.setState({make_selector_disabled: true})
-    this.setState({model_selector_disabled: true})
-    this.setState({variation_selector_disabled: true})
-    this.setState({go_button_disabled: true})
+  async buttonClicked() {
+    this.disableSelectors(true)
     
+    const fetchedFuelData = await fetchFuelData(this.state.selected_year, this.state.selected_make, this.state.selected_model, this.state.selected_variation)
+
+    this.props.callback(fetchedFuelData)
+  }
+
+  disableSelectors(setting) {
+    this.setState({year_selector_disabled: setting, 
+                   make_selector_disabled: setting, 
+                   model_selector_disabled: setting, 
+                   variation_selector_disabled: setting, 
+                   go_button_disabled: setting})
   }
 
   render() {
     return (
-      <>
-      <ThemeProvider theme={theme}>
+      <Stepper activeStep={this.state.current_step} orientation={this.state.orientation}>
 
-          <div style={{width: '75%'}}>
-            <Stepper activeStep={this.state.current_step} orientation={this.state.orientation}>
+        <Step key={"Select the car's year"}>
+          <StepLabel>{"Select the car's year"}</StepLabel>
 
-              <Step key={"Select the car's year"}>
-                <StepLabel>{"Select the car's year"}</StepLabel>
+          <ItemSelector ref={this.year_selector}
+                              disabled={this.state.year_selector_disabled} 
+                              data={this.state.years} 
+                              styleguide={{minWidth: 170, marginBottom: 10}} 
+                              label={"Years"}
+                              callback={(newYear) => this.newSelection(YEAR_ID, newYear)}>
+          </ItemSelector>
+        </Step>
 
-                <ItemSelector ref={this.year_selector}
-                                    disabled={this.state.year_selector_disabled} 
-                                    data={this.state.years} 
-                                    styleguide={{minWidth: 170, marginBottom: 10}} 
-                                    label={"Years"}
-                                    callback={(newYear) => this.newSelection(YEAR_ID, newYear)}>
-                </ItemSelector>
-              </Step>
+        <Step key={"Select the car's make"}>
+          <StepLabel>{"Select the car's make"}</StepLabel>
 
-              <Step key={"Select the car's make"}>
-                <StepLabel>{"Select the car's make"}</StepLabel>
+          <ItemSelector label={"Makes"}
+                        ref={this.make_selector}
+                        disabled={this.state.make_selector_disabled} 
+                        data={this.state.makes} 
+                        styleguide={{minWidth: 180, marginBottom: 10}} 
+                        callback={(newMake) => this.newSelection(MAKE_ID ,newMake)}>
+          </ItemSelector>
+        </Step>
 
-                <ItemSelector label={"Makes"}
-                              ref={this.make_selector}
-                              disabled={this.state.make_selector_disabled} 
-                              data={this.state.makes} 
-                              styleguide={{minWidth: 180, marginBottom: 10}} 
-                              callback={(newMake) => this.newSelection(MAKE_ID ,newMake)}>
-                </ItemSelector>
-              </Step>
+        <Step key={"Select the car's model"}>
+          <StepLabel>{"Select the car's model"}</StepLabel>
+          
+          <ItemSelector label={"Models"}
+                        ref={this.model_selector}
+                        disabled={this.state.model_selector_disabled} 
+                        data={this.state.models} 
+                        styleguide={{minWidth: 180, marginBottom: 10}} 
+                        callback={(newModel) => this.newSelection(MODEL_ID, newModel)}>
+          </ItemSelector>
+        </Step>
+        
+        <Step key={"Select the model variation"}>
+          <StepLabel>{"Select the model variation"}</StepLabel>
+          
+          <ItemSelector label={"Variations"} ref={this.variation_selector}
+                        disabled={this.state.variation_selector_disabled} 
+                        data={this.state.variations} 
+                        styleguide={{minWidth: 200, marginBottom: 10}} 
+                        callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)}>
+          </ItemSelector>
+        </Step>
 
-              <Step key={"Select the car's model"}>
-                <StepLabel>{"Select the car's model"}</StepLabel>
-                
-                <ItemSelector label={"Models"}
-                              ref={this.model_selector}
-                              disabled={this.state.model_selector_disabled} 
-                              data={this.state.models} 
-                              styleguide={{minWidth: 180, marginBottom: 10}} 
-                              callback={(newModel) => this.newSelection(MODEL_ID, newModel)}>
-                </ItemSelector>
-              </Step>
-              
-              <Step key={"Select the model variation"}>
-                <StepLabel>{"Select the model variation"}</StepLabel>
-                
-                <ItemSelector label={"Variations"} ref={this.variation_selector}
-                              disabled={this.state.variation_selector_disabled} 
-                              data={this.state.variations} 
-                              styleguide={{minWidth: 200, marginBottom: 10}} 
-                              callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)}>
-                </ItemSelector>
-              </Step>
+        <>
+          <Button onClick={ () => this.buttonClicked() } 
+                  style={{maxWidth: 200, marginLeft: 5, textTransform: "none"}} 
+                  variant="contained" 
+                  color="primary" 
+                  size="large" 
+                  disabled={this.state.go_button_disabled}>
+            Go!
+          </Button>
+        </>
 
-              <>
-                <Button onClick={ () => this.buttonClicked() } style={{maxWidth: 200, marginLeft: 5, textTransform: "none"}} variant="contained" color="primary" size="large" disabled={this.state.go_button_disabled}>Go!</Button>
-              </>
-            </Stepper>
-            
-          </div>
-      
-      </ThemeProvider>   
-      </>
+      </Stepper>
     )
   }
 }
