@@ -36,3 +36,12 @@ export const fetchVariations = async (year, make, model) => {
     
   }
 }
+
+export const fetchFuelData = async (year, make, model, variation) => {
+  try {
+    const { data } = await axios.get(`${url}/fuel-data?year=${year}&make="${make}"&model="${model}"&variation="${variation}"`)
+    return data
+  } catch (error) {
+
+  }
+}
