@@ -20,7 +20,7 @@ class DataCard extends React.Component {
           
           <Typography style={{marginBottom:5}} variant="body1" component="div">
             <span aria-label="cloud emoji" role="img">💨 </span>
-            <span><b>267818.18 lbs </b>of CO<sub>2</sub></span>
+            <span><b>{this.props.co2} lbs </b>of CO<sub>2</sub></span>
           </Typography>
 
           <Typography variant="body1" component="div">
