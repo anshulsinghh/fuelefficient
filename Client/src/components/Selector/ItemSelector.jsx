@@ -12,7 +12,6 @@ class ItemSelector extends React.Component {
   }
 
   async handleChange(event) {
-    console.log("Chagned")
     await this.setState({selectedItem: event.target.value})
     this.props.callback(this.state.selectedItem)
   }
