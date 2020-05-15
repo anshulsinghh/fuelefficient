@@ -29,6 +29,8 @@ class Selector extends React.Component {
     current_step: 0,
 
     orientation: "horizontal",
+
+    enable_width: true
   }
   
   constructor(props) {
@@ -50,10 +52,10 @@ class Selector extends React.Component {
   }
 
   updateDimensions() {
-    if(window.innerWidth < 900) {
-      this.setState({ orientation : "vertical"})
+    if(window.innerWidth < 1000) {
+      this.setState({ orientation : "vertical", enable_width: false})
     } else {
-      this.setState({ orientation : "horizontal"})
+      this.setState({ orientation : "horizontal", enable_width: true})
     }
   }
 
@@ -119,8 +121,16 @@ class Selector extends React.Component {
   }
 
   render() {
+    let style;
+    if (this.state.enable_width) {
+      style = {width:1200, marginLeft:15, marginRight:15}
+    } else {
+      style = {marginLeft:15, marginRight:15}
+    }
+
     return (
-      <Card style={{maxWidth:1200, marginLeft:15, marginRight:15}}>
+      <div style={{display:'flex', justifyContent:'center'}}>
+      <Card style={style}>
         <Stepper activeStep={this.state.current_step} orientation={this.state.orientation}>
 
           <Step key={"Select the car's year"}>
@@ -179,6 +189,7 @@ class Selector extends React.Component {
 
         </Stepper>
       </Card>
+      </div>
     )
   }
 }
