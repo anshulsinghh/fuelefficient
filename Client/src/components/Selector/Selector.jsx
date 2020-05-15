@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Stepper, Step, StepLabel, Button, Card } from '@material-ui/core'
+import { Stepper, Step, StepLabel, /*StepContent,*/ Button, Card } from '@material-ui/core'
 
 import ItemSelector from './ItemSelector'
 
@@ -58,6 +58,8 @@ class Selector extends React.Component {
   }
 
   async newSelection(id, selection) {
+    this.props.selectionChanged()
+
     this.setState({current_step: id})
 
     if (id <= YEAR_ID) { this.make_selector.current.clearSelectedItem(); this.setState({make_selector_disabled: true}) }
@@ -99,11 +101,13 @@ class Selector extends React.Component {
   }
 
   async buttonClicked() {
-    this.disableSelectors(true)
+    //this.disableSelectors(true)
     
     const fetchedFuelData = await fetchFuelData(this.state.selected_year, this.state.selected_make, this.state.selected_model, this.state.selected_variation)
 
-    this.props.callback(fetchedFuelData)
+    this.props.buttonPushed(fetchedFuelData)
+
+    //this.disableSelectors(false)
   }
 
   disableSelectors(setting) {
@@ -116,19 +120,18 @@ class Selector extends React.Component {
 
   render() {
     return (
-      <Card style={{maxWidth:1000}}>
+      <Card style={{maxWidth:1200, marginLeft:15, marginRight:15}}>
         <Stepper activeStep={this.state.current_step} orientation={this.state.orientation}>
 
           <Step key={"Select the car's year"}>
             <StepLabel>{"Select the car's year"}</StepLabel>
-
+            
             <ItemSelector ref={this.year_selector}
-                                disabled={this.state.year_selector_disabled} 
-                                data={this.state.years} 
-                                styleguide={{minWidth: 170, marginBottom: 10}} 
-                                label={"Years"}
-                                callback={(newYear) => this.newSelection(YEAR_ID, newYear)}>
-            </ItemSelector>
+                          disabled={this.state.year_selector_disabled} 
+                          data={this.state.years} 
+                          styleguide={{minWidth: 170, marginBottom: 10}} 
+                          label={"Years"}
+                          callback={(newYear) => this.newSelection(YEAR_ID, newYear)}/>
           </Step>
 
           <Step key={"Select the car's make"}>
@@ -139,8 +142,7 @@ class Selector extends React.Component {
                           disabled={this.state.make_selector_disabled} 
                           data={this.state.makes} 
                           styleguide={{minWidth: 180, marginBottom: 10}} 
-                          callback={(newMake) => this.newSelection(MAKE_ID ,newMake)}>
-            </ItemSelector>
+                          callback={(newMake) => this.newSelection(MAKE_ID ,newMake)}/>
           </Step>
 
           <Step key={"Select the car's model"}>
@@ -151,8 +153,7 @@ class Selector extends React.Component {
                           disabled={this.state.model_selector_disabled} 
                           data={this.state.models} 
                           styleguide={{minWidth: 180, marginBottom: 10}} 
-                          callback={(newModel) => this.newSelection(MODEL_ID, newModel)}>
-            </ItemSelector>
+                          callback={(newModel) => this.newSelection(MODEL_ID, newModel)}/>
           </Step>
           
           <Step key={"Select the model variation"}>
@@ -162,8 +163,7 @@ class Selector extends React.Component {
                           disabled={this.state.variation_selector_disabled} 
                           data={this.state.variations} 
                           styleguide={{minWidth: 200, marginBottom: 10}} 
-                          callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)}>
-            </ItemSelector>
+                          callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)}/>
           </Step>
 
           <>
