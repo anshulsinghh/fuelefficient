@@ -8,7 +8,7 @@ import {
 class DataCard extends React.Component {
   render() {
     return (
-      <Card style={{marginTop: 10, maxWidth:375, marginLeft:15}}>
+      <Card style={{marginTop: 10, maxWidth:375, marginLeft:15, marginRight:15}}>
         <CardContent>
           <Typography variant="h5" style={{marginBottom:5}}>
             <b>{this.props.title}</b>
