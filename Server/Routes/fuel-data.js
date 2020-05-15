@@ -29,7 +29,7 @@ router.get("/fuel-data", (req, res) => {
 
     let out = {"mpg": results[0].mpg,
                "100 miles": getData(100, results[0].mpg),
-               "15000 miles": getData(15000, results[0].mpg),
+               "15000 miles": getData(10000, results[0].mpg),
                "150000 miles": getData(150000, results[0].mpg)
               }
     res.json(out)
