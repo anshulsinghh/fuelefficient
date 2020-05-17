@@ -98,18 +98,12 @@ class Selector extends React.Component {
         
       default:
     }
-
-    //this.props.callback(id === VARIATION_ID)
   }
 
-  async buttonClicked() {
-    //this.disableSelectors(true)
-    
+  async buttonClicked() {    
     const fetchedFuelData = await fetchFuelData(this.state.selected_year, this.state.selected_make, this.state.selected_model, this.state.selected_variation)
 
     this.props.buttonPushed(fetchedFuelData)
-
-    //this.disableSelectors(false)
   }
 
   disableSelectors(setting) {
