@@ -11,8 +11,15 @@
   align-items: center;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 800px) {
   .flex-inner {
     display: block;
   }
+}
+
+.ContentCard {
+  max-width: 375px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
