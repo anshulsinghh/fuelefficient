@@ -1,0 +1,12 @@
+appbar {
+  text-align: center;
+  margin-bottom: 15;
+  position: static;
+  color: inherit;
+}
+
+appbar span {
+  font-family: Shrikhand;
+  font-size: 40;
+  display: inline-block;
+}
