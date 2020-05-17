@@ -1,12 +1,13 @@
 import React from 'react'
-
 import { AppBar } from '@material-ui/core'
+
+import './Title.css'
 
 const Title = () => {
   return (
-    <AppBar style={{'textAlign': 'center', 'marginBottom': 15}} position="static" color="inherit">
-      <span style={{'fontFamily': 'Shrikhand', fontSize: 40, display: 'inline-block'}} role="img" aria-label="Falling leaves emoji">FuelEfficient 🌿</span>
-    </AppBar>
+      <AppBar className="Bar" position="static" color="inherit">
+        <span className="InnerSpan" role="img" aria-label="Falling leaves emoji">FuelEfficient 🌿</span>
+      </AppBar>
   )
 }
 
