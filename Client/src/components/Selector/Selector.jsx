@@ -129,7 +129,7 @@ class Selector extends React.Component {
     }
 
     return (
-      <div style={{display:'flex', justifyContent:'center'}}>
+      <div style={{display:'flex', justifyContent:'center', marginBottom: 15}}>
       <Card style={style}>
         <Stepper activeStep={this.state.current_step} orientation={this.state.orientation}>
 
