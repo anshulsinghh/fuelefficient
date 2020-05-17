@@ -41,7 +41,7 @@ class InfoCard extends React.Component {
     }
 
     return (
-      <Card style={{marginBottom: 15, maxWidth:375, marginLeft:15, marginRight:15}}>
+      <Card className="ContentCard">
         <CardContent>
           <Typography variant="h4" style={{marginBottom:5}}>
             <b>{reaction}</b>
