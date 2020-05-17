@@ -1,0 +1,10 @@
+.Bar {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.InnerSpan {
+  font-family: Shrikhand;
+  font-size: 40px;
+  display: inline-block;
+}
