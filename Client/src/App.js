@@ -1,13 +1,11 @@
 import React from 'react'
 
-import { Title, Selector, DataCard, InfoCard } from './components'
 import { ThemeProvider } from "@material-ui/styles"
-import './CardFlex.css'
+import { createMuiTheme, CssBaseline } from '@material-ui/core'
+import { Title, Selector, DataCard, InfoCard, Welcome } from './components'
+import scrollToComponent from 'react-scroll-to-component';
 
-import {
-  createMuiTheme,
-  CssBaseline
-} from '@material-ui/core'
+import './AppStyles.css'
 
 const theme = createMuiTheme({
   palette: {
@@ -29,20 +27,9 @@ class App extends React.Component {
 
   buttonPushed(fueldata) {
     this.setState({mpg_data: fueldata, car_selected: true})
-    console.log(fueldata)
-    console.log(this.state.car_selected)
+    scrollToComponent(this.cards, { offset: -50, align: 'top', duration: 500})
   }
 
-  selectionChanged() {
-    this.setState({car_selected: false})
-    console.log("New selection")
-  }
-
-  getCO2() {
-    return 5
-  }
-
-  //this.state.mpg_data["100 miles"]["CO2 emitted"]
   render() {
     let cards;
     if (this.state.car_selected) {
@@ -50,13 +37,13 @@ class App extends React.Component {
       let mpgdata15000 = this.state.mpg_data["15000 miles"]
       let mpgdata150000 = this.state.mpg_data["150000 miles"]
 
-      cards = <div class="flex-outer">
-                <div class="flex-inner">
+      cards = <div className="flex-outer" ref={(div) => { this.cards = div; }}>
+                <div className="flex-inner">
                   <InfoCard mpg={this.state.mpg_data["mpg"]}/>
                   <DataCard title="Over 100 miles..." co2={mpgdata100["CO2 emitted"]} homes={mpgdata100["Household"]} flights={mpgdata100["Flights from SD to PHX"]} trees={mpgdata100["Tree"]}/>
                 </div>
 
-                <div class="flex-inner">
+                <div className="flex-inner">
                   <DataCard title="Over 10,000 miles..." co2={mpgdata15000["CO2 emitted"]} homes={mpgdata15000["Household"]} flights={mpgdata15000["Flights from SD to PHX"]} trees={mpgdata15000["Tree"]}/>
                   <DataCard title="Over 150,000 miles..." co2={mpgdata150000["CO2 emitted"]} homes={mpgdata150000["Household"]} flights={mpgdata150000["Flights from SD to PHX"]} trees={mpgdata150000["Tree"]}/>
                 </div>
@@ -67,13 +54,9 @@ class App extends React.Component {
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Title/>
-        
-
-        <Selector buttonPushed={(fueldata) => this.buttonPushed(fueldata)} selectionChanged={() => this.selectionChanged()}/>
-
+        <Welcome/>
+        <Selector buttonPushed={(fueldata) => this.buttonPushed(fueldata)} selectionChanged={() => this.setState({car_selected: false})}/>
         {cards}
-        
-        
       </ThemeProvider>
     )
   }
