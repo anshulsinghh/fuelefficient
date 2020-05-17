@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Title, Selector, DataCard, InfoCard } from './components'
 import { ThemeProvider } from "@material-ui/styles"
-import './Flex.css'
+import './CardFlex.css'
 
 import {
   createMuiTheme,
