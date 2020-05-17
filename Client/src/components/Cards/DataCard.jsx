@@ -2,11 +2,10 @@ import React from 'react'
 
 import { Card, CardContent, Typography } from '@material-ui/core'
 
-
 class DataCard extends React.Component {
   render() {
     return (
-      <Card style={{marginBottom: 15, maxWidth:375, marginLeft:15, marginRight:15}}>
+      <Card className="ContentCard">
         <CardContent>
           <Typography variant="h5" style={{marginBottom:5}}>
             <b>{this.props.title}</b>
