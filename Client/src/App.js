@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ThemeProvider } from "@material-ui/styles"
 import { createMuiTheme, CssBaseline } from '@material-ui/core'
-import { Title, Selector, DataCard, InfoCard, Welcome } from './components'
+import { Title, Selector, DataCard, InfoCard, Welcome, About } from './components'
 import scrollToComponent from 'react-scroll-to-component';
 
 import './AppStyles.css'
@@ -57,6 +57,7 @@ class App extends React.Component {
         <Welcome/>
         <Selector buttonPushed={(fueldata) => this.buttonPushed(fueldata)} selectionChanged={() => this.setState({car_selected: false})}/>
         {cards}
+        <About/>
       </ThemeProvider>
     )
   }
