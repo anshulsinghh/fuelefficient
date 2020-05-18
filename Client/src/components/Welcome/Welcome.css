@@ -2,3 +2,10 @@
   display: flex;
   justify-content: center;
 }
+
+.WelcomeCard {
+  max-width: 550px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}

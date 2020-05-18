@@ -7,7 +7,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="container">
-        <Card className="ContentCard">
+        <Card className="WelcomeCard">
           <CardContent>
             <Typography variant="h4" style={{marginBottom:5}}>
               <b><span aria-label="cloud emoji" role="img">👋</span> Welcome!</b>
@@ -17,7 +17,7 @@ class Welcome extends React.Component {
               FuelEfficient is a place to see and understand your vehicle's emissions.
               <br/>
               <br/>
-              Use the tool below to get started!
+              Input your car's information in the tool below to get started!
             </Typography>
           </CardContent>
         </Card>
