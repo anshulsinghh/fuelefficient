@@ -1,3 +1,4 @@
+/* Defines the outer flexbox used for rendering the cards */
 .flex-outer {
   display: flex;
   flex-wrap: wrap;
@@ -5,18 +6,22 @@
   align-items: center;
 }
 
+/* Defines the inner flexbox used for rendering the cards */
 .flex-inner {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Set the inner flexboxes to have block displays (this makes the cards display 
+   vertically on small displays) */
 @media screen and (max-width: 800px) {
   .flex-inner {
     display: block;
   }
 }
 
+/* Defines the ContentCard class used by the InfoCard and DataCards */
 .ContentCard {
   max-width: 375px;
   margin-left: 15px;
@@ -24,6 +29,7 @@
   margin-bottom: 15px;
 }
 
+/* Defines that all links should inherit colors */
 a {
   color: inherit;
 }
