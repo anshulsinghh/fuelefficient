@@ -1,0 +1,15 @@
+.AboutContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.AboutCard {
+  max-width: 750px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+li {
+  margin-bottom: 10px;
+}
