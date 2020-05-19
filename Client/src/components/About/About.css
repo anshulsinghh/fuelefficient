@@ -1,8 +1,4 @@
-.AboutContainer {
-  display: flex;
-  justify-content: center;
-}
-
+/* Styles for the About Card */
 .AboutCard {
   max-width: 750px;
   margin-left: 15px;
@@ -10,6 +6,12 @@
   margin-bottom: 15px;
 }
 
+/* Places spacing at the bottom of each list element */
 li {
   margin-bottom: 10px;
+}
+
+/* Places spacing at the bottom of the About card's title text */
+.title {
+  margin-bottom: 5px;
 }
