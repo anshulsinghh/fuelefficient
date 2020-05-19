@@ -1,3 +1,4 @@
+// This file exports all components in the ./components folder
 export { default as Title } from './Title/Title'
 export { default as Selector } from './Selector/Selector'
 export { default as DataCard } from './Cards/DataCard'
