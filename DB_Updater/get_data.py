@@ -1,19 +1,38 @@
-import dload
-import os
+from io import BytesIO
+from zipfile import ZipFile
+from urllib.request import urlopen
 import pandas as pd
+from connect_db import connect_db
 
-print("Downloading EPA vehicles dataset")
-dload.save_unzip("http://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip", "./")
-print("Finished downloading dataset")
+# Create the database connection with MySQL
+db = connect_db()
 
-cars = pd.read_csv("vehicles.csv", low_memory=False)
-cars = cars[['year', 'make', 'model', 'trany', 'comb08']]
+# Cursor for inserting new vehicles
+cursor = db.cursor()
 
-# print(cars[50])
-# print(cars.head())
+resp = urlopen("http://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip")
+zipfile = ZipFile(BytesIO(resp.read()))
 
-for key, value in cars.iteritems(): 
-    print(key, value) 
-    print() 
+cars = pd.read_csv(zipfile.open('vehicles.csv'), low_memory=False)
+cars = cars[['year', 'make', 'model', 'trany', 'comb08', 'fuelType']]
+df = pd.DataFrame(cars)
 
-os.remove("vehicles.csv")
+for id, car in df.iterrows():
+    if car.fuelType != "Electricity":
+        year = str(car.year)
+        make = str(car.make)
+        model = str(car.model)
+        variation = str(car.trany)
+        mpg = str(car.comb08)
+        identifier = year + make + model + variation + mpg
+
+        vals = (year, make, model, variation, mpg, identifier)
+
+        sql = f'REPLACE INTO vehicles_copy (year, make, model, variation, mpg, identifier) VALUES({year}, "{make}", "{model}", "{variation}", {mpg}, "{identifier}")'
+        cursor.execute(sql)
+        db.commit()
+
+        print("Inserted: ", vals)
+
+
+print(cursor.rowcount, " rows inserted.")
