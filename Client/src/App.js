@@ -42,10 +42,10 @@ class App extends React.Component {
   buttonPushed(fueldata) {
     /* Set the mpg_data to the fueldata recieved by the API, and set the car_selected
        attribute to true */
-    this.setState({mpg_data: fueldata, car_selected: true})
-    
+    this.setState({ mpg_data: fueldata, car_selected: true })
+
     // Scroll to the newly displayed cards
-    scrollToComponent(this.cards, { offset: -50, align: 'top', duration: 500})
+    scrollToComponent(this.cards, { offset: -50, align: 'top', duration: 500 })
   }
 
   render() {
@@ -63,39 +63,39 @@ class App extends React.Component {
 
 
       cards = <div className="flex-outer" ref={(div) => { this.cards = div; }} /* Creates a reference to the Cards that can be scrolled to */>
-                <div className="flex-inner">
-                  {/* Render an InfoCard with the MPG of the car */}
-                  <InfoCard mpg={this.state.mpg_data["mpg"]}/>
+        <div className="flex-inner">
+          {/* Render an InfoCard with the MPG of the car */}
+          <InfoCard mpg={this.state.mpg_data["mpg"]} />
 
-                  {/* Render a DataCard with the relevent CO2 emissions of the car, the equivalent number of homes, flights, and trees that the car's CO2 equates to */}
-                  <DataCard title="Over 100 miles..." co2={mpgdata100["CO2 emitted"]} homes={mpgdata100["Household"]} flights={mpgdata100["Flights from SD to PHX"]} trees={mpgdata100["Tree"]}/>
-                </div>
+          {/* Render a DataCard with the relevent CO2 emissions of the car, the equivalent number of homes, flights, and trees that the car's CO2 equates to */}
+          <DataCard title="Over 100 miles..." co2={mpgdata100["CO2 emitted"]} homes={mpgdata100["Household"]} flights={mpgdata100["Flights from SD to PHX"]} trees={mpgdata100["Tree"]} />
+        </div>
 
-                {/* Repeat the same pattern, but for the 10,000mi and 150,000mi distances */}
-                <div className="flex-inner">
-                  <DataCard title="Over 10,000 miles..." co2={mpgdata15000["CO2 emitted"]} homes={mpgdata15000["Household"]} flights={mpgdata15000["Flights from SD to PHX"]} trees={mpgdata15000["Tree"]}/>
-                  <DataCard title="Over 150,000 miles..." co2={mpgdata150000["CO2 emitted"]} homes={mpgdata150000["Household"]} flights={mpgdata150000["Flights from SD to PHX"]} trees={mpgdata150000["Tree"]}/>
-                </div>
-              </div>
+        {/* Repeat the same pattern, but for the 10,000mi and 150,000mi distances */}
+        <div className="flex-inner">
+          <DataCard title="Over 10,000 miles..." co2={mpgdata15000["CO2 emitted"]} homes={mpgdata15000["Household"]} flights={mpgdata15000["Flights from SD to PHX"]} trees={mpgdata15000["Tree"]} />
+          <DataCard title="Over 150,000 miles..." co2={mpgdata150000["CO2 emitted"]} homes={mpgdata150000["Household"]} flights={mpgdata150000["Flights from SD to PHX"]} trees={mpgdata150000["Tree"]} />
+        </div>
+      </div>
     }
-    
+
     return (
       // Return the content of the website, all of it encolsed in the Dark Mode theme defined earlier
       <ThemeProvider theme={theme}>
-        <CssBaseline/> {/* Used to get Dark Mode styles in the page */}
-        
-        <Title/> {/* The website title bar with the FuelEfficient logo */}
-        <Welcome/> {/* The website welcome message */}
+        <CssBaseline /> {/* Used to get Dark Mode styles in the page */}
+
+        <Title /> {/* The website title bar with the FuelEfficient logo */}
+        <Welcome /> {/* The website welcome message */}
 
         {/* The car selector tool. It calls the buttonPushed() method when the Go button is pressed, and sets the car_selected aspect in
             the state whenever a selection changes in the selector tool. */}
-        <Selector buttonPushed={(fueldata) => this.buttonPushed(fueldata)} selectionChanged={() => this.setState({car_selected: false})}/>
+        <Selector buttonPushed={(fueldata) => this.buttonPushed(fueldata)} selectionChanged={() => this.setState({ car_selected: false })} />
 
         {/* Renders the cards that were produced earlier (if any) */}
         {cards}
 
         {/* The about section of the website */}
-        <About/>
+        <About />
 
       </ThemeProvider>
     )

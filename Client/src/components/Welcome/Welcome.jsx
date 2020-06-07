@@ -18,7 +18,7 @@ const Welcome = () => {
           {/* The main message of the Welcome Card */}
           <Typography variant="body1" component="div">
             FuelEfficient is a place to see and understand your vehicle's emissions.
-            <br/><br/>
+            <br /><br />
             Input your car's information in the tool below to get started!
           </Typography>
         </CardContent>

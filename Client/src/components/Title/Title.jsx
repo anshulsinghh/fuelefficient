@@ -5,9 +5,9 @@ import './Title.css'
 
 const Title = () => {
   return (
-      <AppBar className="Bar" position="static" color="inherit">
-        <span className="InnerSpan" role="img" aria-label="Falling leaves emoji">🌿 FuelEfficient</span>
-      </AppBar>
+    <AppBar className="Bar" position="static" color="inherit">
+      <span className="InnerSpan" role="img" aria-label="Falling leaves emoji">🌿 FuelEfficient</span>
+    </AppBar>
   )
 }
 

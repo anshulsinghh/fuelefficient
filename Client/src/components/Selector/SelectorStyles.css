@@ -1,3 +1,4 @@
+/* The container for our selector component */
 .SelectorContainer {
   display: flex;
   justify-content: center;

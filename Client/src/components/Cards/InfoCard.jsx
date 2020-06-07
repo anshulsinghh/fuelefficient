@@ -7,7 +7,7 @@ function InfoCard(props) {
   let reaction // The reaction to the car's mileage
   let suggestion // The suggestion for the user who searched the car
   let description = "This is a" // Description of the car's mileage
-  
+
   // Set the messages according to the car's mileage
   if (mpg < 10) {
     reaction = "🤬 Yikes!"
@@ -50,9 +50,9 @@ function InfoCard(props) {
         {/* Displays teh mpg, description, and suggestion for the car's mileage */}
         <Typography variant="body1" component="div">
           The car you selected gets <b>{mpg} mpg</b>
-          <br/>
+          <br />
           {description}
-          <br/><br/>
+          <br /><br />
           {suggestion}
         </Typography>
       </CardContent>

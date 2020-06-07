@@ -24,7 +24,7 @@ class Selector extends React.Component {
     orientation: "horizontal",
     enable_width: true
   }
-  
+
   constructor(props) {
     super(props)
 
@@ -38,8 +38,8 @@ class Selector extends React.Component {
   async componentDidMount() {
     // Fetch the available car years, and disable the year selector afterwards
     const fetchedYears = await fetchYears()
-    this.setState({years: fetchedYears})
-    this.setState({year_selector_disabled: false})
+    this.setState({ years: fetchedYears })
+    this.setState({ year_selector_disabled: false })
 
     // Update the dimensions of the selector
     this.updateDimensions()
@@ -53,10 +53,10 @@ class Selector extends React.Component {
    */
   updateDimensions() {
     // Set the orientation to vertical if the window's width is smaller than 1000px
-    if(window.innerWidth < 1000) {
-      this.setState({ orientation : "vertical", enable_width: false})
+    if (window.innerWidth < 1000) {
+      this.setState({ orientation: "vertical", enable_width: false })
     } else { // Set to horizontal otherwise
-      this.setState({ orientation : "horizontal", enable_width: true})
+      this.setState({ orientation: "horizontal", enable_width: true })
     }
   }
 
@@ -72,63 +72,63 @@ class Selector extends React.Component {
   async newSelection(id, selection) {
     // Executes the selectionChagned callback method, since we changed the selection.
     this.props.selectionChanged()
-    
+
     // Set the current step to the new selection ID
-    this.setState({current_step: id})
+    this.setState({ current_step: id })
 
     // Clear the current selector's item, and disable the next selector in line
-    if (id <= YEAR_ID) { this.make_selector.current.clearSelectedItem(); this.setState({make_selector_disabled: true}) }
-    if (id <= MAKE_ID) { this.model_selector.current.clearSelectedItem(); this.setState({model_selector_disabled: true}) }
-    if (id <= MODEL_ID) { this.variation_selector.current.clearSelectedItem(); this.setState({variation_selector_disabled: true}) }
-    if (id <= VARIATION_ID) { this.setState({go_button_disabled: true}) }
+    if (id <= YEAR_ID) { this.make_selector.current.clearSelectedItem(); this.setState({ make_selector_disabled: true }) }
+    if (id <= MAKE_ID) { this.model_selector.current.clearSelectedItem(); this.setState({ model_selector_disabled: true }) }
+    if (id <= MODEL_ID) { this.variation_selector.current.clearSelectedItem(); this.setState({ variation_selector_disabled: true }) }
+    if (id <= VARIATION_ID) { this.setState({ go_button_disabled: true }) }
 
-    switch(id) {
+    switch (id) {
       // Executes if the selector was the Year selector
       case YEAR_ID:
         // Fetch the makes available from the API and set the state for the makes
         const fetchedMakes = await fetchMakes(selection)
-        this.setState({makes: fetchedMakes})
+        this.setState({ makes: fetchedMakes })
 
         // Set the selected year to the new selection
-        this.setState({selected_year: selection})
+        this.setState({ selected_year: selection })
 
         // Enable the make selector
-        this.setState({make_selector_disabled: false})
+        this.setState({ make_selector_disabled: false })
         break
 
       // Executes if the selector was the Make selector
       case MAKE_ID:
         // Fetch the models available from the API and set the state for the models
         const fetchedModels = await fetchModels(this.state.selected_year, selection)
-        this.setState({models: fetchedModels})
+        this.setState({ models: fetchedModels })
 
         // Set the selected make to the new selection
-        this.setState({selected_make: selection})
+        this.setState({ selected_make: selection })
 
         // Enable the model selector
-        this.setState({model_selector_disabled: false})   
+        this.setState({ model_selector_disabled: false })
         break
 
       // Executes if the selector was the Model selector
       case MODEL_ID:
         // Fetch the variations available from the API and set the state for the variations
         const fetchedVariations = await fetchVariations(this.state.selected_year, this.state.selected_make, selection)
-        this.setState({variations: fetchedVariations})
+        this.setState({ variations: fetchedVariations })
 
         // Set the selected model to the new model
-        this.setState({selected_model: selection})
+        this.setState({ selected_model: selection })
 
         // Enable the variation selector
-        this.setState({variation_selector_disabled: false})   
+        this.setState({ variation_selector_disabled: false })
         break
 
       // Exeuctes if the sector was the Variation selector
       case VARIATION_ID:
         // Set the selected variation, and enable the go button
-        this.setState({selected_variation: selection})
-        this.setState({go_button_disabled: false})
+        this.setState({ selected_variation: selection })
+        this.setState({ go_button_disabled: false })
         break
-        
+
       default:
     }
   }
@@ -152,20 +152,22 @@ class Selector extends React.Component {
    * @param setting: the desired state for the selectors (either true or false) 
    */
   disableSelectors(setting) {
-    this.setState({year_selector_disabled: setting, 
-                   make_selector_disabled: setting, 
-                   model_selector_disabled: setting, 
-                   variation_selector_disabled: setting, 
-                   go_button_disabled: setting})
+    this.setState({
+      year_selector_disabled: setting,
+      make_selector_disabled: setting,
+      model_selector_disabled: setting,
+      variation_selector_disabled: setting,
+      go_button_disabled: setting
+    })
   }
 
   render() {
     // Changes the card style depending on if the width setting is enabled
     let style;
     if (this.state.enable_width) {
-      style = {width:1200, marginLeft:15, marginRight:15}
+      style = { width: 1200, marginLeft: 15, marginRight: 15 }
     } else {
-      style = {marginLeft:15, marginRight:15}
+      style = { marginLeft: 15, marginRight: 15 }
     }
 
     return (
@@ -176,13 +178,13 @@ class Selector extends React.Component {
             {/* The year selector and step */}
             <Step key={"Select the car's year"}>
               <StepLabel>{"Select the car's year"}</StepLabel>
-              
+
               <ItemSelector ref={this.year_selector}
-                            disabled={this.state.year_selector_disabled} 
-                            data={this.state.years} 
-                            styleguide={{minWidth: 170, marginBottom: 10}} 
-                            label={"Years"}
-                            callback={(newYear) => this.newSelection(YEAR_ID, newYear)}/>
+                disabled={this.state.year_selector_disabled}
+                data={this.state.years}
+                styleguide={{ minWidth: 170, marginBottom: 10 }}
+                label={"Years"}
+                callback={(newYear) => this.newSelection(YEAR_ID, newYear)} />
             </Step>
 
             {/* The make selector and step */}
@@ -190,44 +192,44 @@ class Selector extends React.Component {
               <StepLabel>{"Select the car's make"}</StepLabel>
 
               <ItemSelector label={"Makes"}
-                            ref={this.make_selector}
-                            disabled={this.state.make_selector_disabled} 
-                            data={this.state.makes} 
-                            styleguide={{minWidth: 180, marginBottom: 10}} 
-                            callback={(newMake) => this.newSelection(MAKE_ID ,newMake)}/>
+                ref={this.make_selector}
+                disabled={this.state.make_selector_disabled}
+                data={this.state.makes}
+                styleguide={{ minWidth: 180, marginBottom: 10 }}
+                callback={(newMake) => this.newSelection(MAKE_ID, newMake)} />
             </Step>
 
             {/* The model selector and step */}
             <Step key={"Select the car's model"}>
               <StepLabel>{"Select the car's model"}</StepLabel>
-              
+
               <ItemSelector label={"Models"}
-                            ref={this.model_selector}
-                            disabled={this.state.model_selector_disabled} 
-                            data={this.state.models} 
-                            styleguide={{minWidth: 180, marginBottom: 10}} 
-                            callback={(newModel) => this.newSelection(MODEL_ID, newModel)}/>
+                ref={this.model_selector}
+                disabled={this.state.model_selector_disabled}
+                data={this.state.models}
+                styleguide={{ minWidth: 180, marginBottom: 10 }}
+                callback={(newModel) => this.newSelection(MODEL_ID, newModel)} />
             </Step>
-            
+
             {/* The variation selector and step */}
             <Step key={"Select the model variation"}>
               <StepLabel>{"Select the model variation"}</StepLabel>
-              
+
               <ItemSelector label={"Variations"} ref={this.variation_selector}
-                            disabled={this.state.variation_selector_disabled} 
-                            data={this.state.variations} 
-                            styleguide={{minWidth: 200, marginBottom: 10}} 
-                            callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)}/>
+                disabled={this.state.variation_selector_disabled}
+                data={this.state.variations}
+                styleguide={{ minWidth: 200, marginBottom: 10 }}
+                callback={(newVariation) => this.newSelection(VARIATION_ID, newVariation)} />
             </Step>
 
             {/* The Go! button */}
             <>
-              <Button onClick={ () => this.buttonClicked() } 
-                      style={{maxWidth: 200, marginLeft: 5, textTransform: "none"}} 
-                      variant="contained" 
-                      color="primary" 
-                      size="large" 
-                      disabled={this.state.go_button_disabled}>
+              <Button onClick={() => this.buttonClicked()}
+                style={{ maxWidth: 200, marginLeft: 5, textTransform: "none" }}
+                variant="contained"
+                color="primary"
+                size="large"
+                disabled={this.state.go_button_disabled}>
                 Go!
               </Button>
             </>
