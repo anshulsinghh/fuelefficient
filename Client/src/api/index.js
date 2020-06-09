@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // The API's URL
-const url = 'http://FuelefficientServer-env.eba-rqsnqrcw.us-west-1.elasticbeanstalk.com/api/v1.0'
+const url = '/api/v1.0'
 
 /**
  * fetchYears queries the API to fetch FuelEfficient's available car years.
