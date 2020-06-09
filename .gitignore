@@ -1,6 +1,9 @@
-Server/node_modules/
-DB_Maintainer/node_modules/
-Client/node_modules/
+Server/node_modules
+
+DB_Maintainer/node_modules
+
+Client/node_modules
+Client/build
 
 DB_Updater/__pycache__
 DB_Updater/env
