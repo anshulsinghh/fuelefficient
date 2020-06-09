@@ -1,12 +1,12 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "anshulsingh/fuelefficient-server",
+    "Name": "anshulsingh/fuelefficient-production",
     "Update": "true"
   },
   "Ports": [
     {
-      "ContainerPort": 5000,
+      "ContainerPort": 4000,
       "HostPort": 8000
     }
   ],
