@@ -15,7 +15,7 @@ FuelEfficient sources vehicle data from the EPA's <a href="https://www.fuelecono
 
 - CO<sub>2</sub> emissions are calculated by multiplying the MPG by <i>19.64</i> (lbs of CO<sub>2</sub> per gallon of gas) - <a href="https://www.patagoniaalliance.org/wp-content/uploads/2014/08/How-much-carbon-dioxide-%20is-produced-by-burning-gasoline-and-diesel-fuel-FAQ-U.S.-Energy-Information-Administration-EIA.pdf">Source</a>
 - The average household produces 7.5 tons of CO<sub>2 a year</sub> - <a href="https://www.ccfpd.org/Portals/0/Assets/PDF/Facts_Chart.pdf">Source</a>. This equates to 1,250lbs per month
-  - An airliner releases 53lbs of CO<sub>2</sub> 
+- An airliner releases 53lbs of CO<sub>2</sub> 
 
 ## How It Works
 FuelEfficient is built on a MySQL, Express, React, and NodeJS stack.
