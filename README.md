@@ -14,8 +14,8 @@ The tool allows users to input the year, make, model, and variation of any vehic
 FuelEfficient sources vehicle data from the EPA's <a href="https://www.fueleconomy.gov/feg/download.shtml">Fuel Economy Dataset</a>. Each row in the dataset contains the year/make/model/variation/mpg of the car alongside other extraneous information. For calculations in each distance card (100mi/10,000mi/150,000mi) the factors below are used:
 
 - CO<sub>2</sub> emissions are calculated by multiplying the MPG by <i>19.64</i> (lbs of CO<sub>2</sub> per gallon of gas) - <a href="https://www.patagoniaalliance.org/wp-content/uploads/2014/08/How-much-carbon-dioxide-%20is-produced-by-burning-gasoline-and-diesel-fuel-FAQ-U.S.-Energy-Information-Administration-EIA.pdf">Source</a>
-- The average household produces <i>7.5</i> tons of CO<sub>2 a year</sub> - <a href="https://www.ccfpd.org/Portals/0/Assets/PDF/Facts_Chart.pdf">Source</a>. This equates to <i>1,250</i>lbs per month
-- An airliner releases <i>53</i>lbs of CO<sub>2</sub>  per mile - <a href="https://blueskymodel.org/air-mile">Source</a>. Since San Diego and Phoenix are 298.67 miles apart, this means that a flight between SD and PHX releases about <i>15,829.51</i>lbs of CO<sub>2</sub>
+- The average household produces <i>7.5 tons</i> of CO<sub>2 a year</sub> - <a href="https://www.ccfpd.org/Portals/0/Assets/PDF/Facts_Chart.pdf">Source</a>. This equates to <i>1,250lbs</i> per month
+- An airliner releases <i>53lbs</i> of CO<sub>2</sub>  per mile - <a href="https://blueskymodel.org/air-mile">Source</a>. Since San Diego and Phoenix are 298.67 miles apart, this means that a flight between SD and PHX releases about <i>15,829.51</i>lbs of CO<sub>2</sub>
 
 ## How It Works
 FuelEfficient is built on a MySQL, Express, React, and NodeJS stack.
