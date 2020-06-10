@@ -27,8 +27,8 @@ Test
 ### Backend
 | Route | Params |
 | --- | --- |
-| `git status` | List all *new or modified* files |
-| `git diff` | Show file differences that **haven't been** staged |
+| `/api/v1.0/years` | List all *new or modified* files |
+| `/api/v1.0/makes` | Show file differences that **haven't been** staged |
 
 
 ## Deployment
