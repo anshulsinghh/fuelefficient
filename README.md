@@ -11,7 +11,9 @@ The tool allows users to input the year, make, model, and variation of any vehic
 </p>
 
 ## How is Data Sourced?
-FuelEfficient sources vehicle MPG data from the EPA's <a href="https://www.fueleconomy.gov/feg/download.shtml">Fuel Economy Dataset</a>. Each row in the dataset contains the year/make/model/variation of the car, as well as the car's MPG. This data is parsed and used by FuelEfficient 
+FuelEfficient sources vehicle data from the EPA's <a href="https://www.fueleconomy.gov/feg/download.shtml">Fuel Economy Dataset</a>. Each row in the dataset contains the year/make/model/variation/mpg of the car alongside other extraneous information
+
+CO<sub>2</sub> emissions are calculated by multiplying a vehicle's MPG by <i>19.64</i> (lbs of CO2released from burning 1 gallon of gas)
 
 ## How It Works
 FuelEfficient is built on a MySQL, Express, React, and NodeJS stack.
