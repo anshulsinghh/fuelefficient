@@ -27,8 +27,11 @@ Test
 ### Backend
 | Route | Params |
 | --- | --- |
-| `/api/v1.0/years` | List all *new or modified* files |
-| `/api/v1.0/makes` | Show file differences that **haven't been** staged |
+| `/api/v1.0/years` | none |
+| `/api/v1.0/makes` | year |
+| `/api/v1.0/models` | year, make |
+| `/api/v1.0/model-variations` | year, make, model |
+| `/api/v1.0/fuel-data` | year, make, model, variation |
 
 
 ## Deployment
