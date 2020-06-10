@@ -25,8 +25,10 @@ Test
 ### Frontend
 Test
 ### Backend
-Routes
-`year/api`
+| Route | Params |
+| --- | --- |
+| `git status` | List all *new or modified* files |
+| `git diff` | Show file differences that **haven't been** staged |
 
 
 ## Deployment
