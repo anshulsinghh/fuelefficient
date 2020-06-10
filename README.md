@@ -23,13 +23,13 @@ FuelEfficient is built on a MySQL, Express, React, and NodeJS stack.
 ### DB
 Test
 ### Backend
-| Route | Params | Request Type |
-| --- | --- | -- |
-| `/api/v1.0/years` | none | `GET` |
-| `/api/v1.0/makes` | year | `GET` |
-| `/api/v1.0/models` | year, make | `GET` |
-| `/api/v1.0/model-variations` | year, make, model | `GET` |
-| `/api/v1.0/fuel-data` | year, make, model, variation | `GET` |
+| Route | Params | Type | Description |
+| --- | --- | -- | -- |
+| `/api/v1.0/years` | none | `GET` | Retrieve every unique year of cars in the FuelEffcient DB |
+| `/api/v1.0/makes` | year | `GET` | N/A |
+| `/api/v1.0/models` | year, make | `GET` | N/A |
+| `/api/v1.0/model-variations` | year, make, model | `GET` | N/A |
+| `/api/v1.0/fuel-data` | year, make, model, variation | `GET` | N/A |
 ### Frontend
 Test
 
