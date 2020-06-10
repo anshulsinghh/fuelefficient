@@ -11,7 +11,7 @@ The tool allows users to input the year, make, model, and variation of any vehic
 </p>
 
 ## How is Data Sourced?
-FuelEfficient sources vehicle data from the EPA's <a href="https://www.fueleconomy.gov/feg/download.shtml">Fuel Economy Dataset</a>. Each row in the dataset contains the year/make/model/variation/mpg of the car alongside other extraneous information
+FuelEfficient sources vehicle data from the EPA's <a href="https://www.fueleconomy.gov/feg/download.shtml">Fuel Economy Dataset</a>. Each row in the dataset contains the year/make/model/variation/mpg of the car alongside other extraneous information. For calculations in each distance card (100mi/10,000mi/150,000mi) the factors below are used:
 
 - CO<sub>2</sub> emissions are calculated by multiplying the MPG by <i>19.64</i> (lbs of CO<sub>2</sub> per gallon of gas) - <a href="https://www.patagoniaalliance.org/wp-content/uploads/2014/08/How-much-carbon-dioxide-%20is-produced-by-burning-gasoline-and-diesel-fuel-FAQ-U.S.-Energy-Information-Administration-EIA.pdf">Source</a>
 - The average household produces 7.5 tons of CO<sub>2 a year</sub> - <a href="https://www.ccfpd.org/Portals/0/Assets/PDF/Facts_Chart.pdf">Source</a>. This equates to 1,250lbs per month
