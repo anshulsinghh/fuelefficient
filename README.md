@@ -2,7 +2,7 @@
 <div align="center">A full-stack website, where users can see their car's emissions. <a href="http://fuelefficient.info">View the project!</a></div>  
 <br/>
 
-## TL;DR
+## Background
 FuelEfficient allows users to understand their vehicle's emissions through a simple car selector tool.
 
 The tool allows users to input the year, make, model, and variation of any vehicle and then displays personalized feedback. An example is shown below (this was run on a 2005 Suzuki Grand Vitara Automatic 4-spd):
