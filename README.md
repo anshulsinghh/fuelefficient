@@ -7,7 +7,7 @@ FuelEfficient allows users to understand their vehicle's emissions through a sim
 
 The tool allows users to input the year, make, model, and variation of any vehicle and then displays a personalized feedback. An example is shown below (this was run on a 2005 Suzuki Grand Vitara Automatic 4-spd):
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/577336178643042334/720185360151216148/unknown.png" alt="Personalized Feedback" width="738">
+  <img src="https://cdn.discordapp.com/attachments/577336178643042334/720185360151216148/unknown.png" alt="Personalized Feedback">
 </p>
 
 
