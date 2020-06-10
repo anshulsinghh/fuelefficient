@@ -3,7 +3,9 @@
 <br/>
 
 ## Background
-FuelEfficient allows users to input the year, make, model, and variation of any vehicle and 
+FuelEfficient allows users to input the year, make, model, and variation of any vehicle and then does the following:
+- Using the vehicle
+
 
 FuelEfficient sources vehicle MPG data from the EPA's <a href="https://www.fueleconomy.gov/feg/download.shtml">Fuel Economy Dataset</a>. Each row in the dataset contains the year/make/model/variation of the car, as well as the car's MPG. This data is parsed and used by FuelEfficient 
 ## How It Works
