@@ -22,8 +22,6 @@ FuelEfficient sources vehicle data from the EPA's <a href="https://www.fuelecono
 FuelEfficient is built on a MySQL, Express, React, and NodeJS stack.
 ### DB
 Test
-### Frontend
-Test
 ### Backend
 | Route | Params |
 | --- | --- |
@@ -32,7 +30,8 @@ Test
 | `/api/v1.0/models` | year, make |
 | `/api/v1.0/model-variations` | year, make, model |
 | `/api/v1.0/fuel-data` | year, make, model, variation |
-
+### Frontend
+Test
 
 ## Deployment
 ```
