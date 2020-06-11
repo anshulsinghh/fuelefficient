@@ -19,9 +19,12 @@ FuelEfficient sources vehicle data from the EPA's <a href="https://www.fuelecono
 - A tree absorbs approximately <i>1 ton</i> of CO<sub>2</sub> by the time it reaches 40 years old. This is equivalent to <i>2000lbs</i> of CO<sub>2</sub> absorbed per 40 year old tree - <a href="https://www.co2meter.com/blogs/news/could-global-co2-levels-be-reduced-by-planting-trees">Source</a>
 
 ## How It Works
-FuelEfficient is built on a MySQL, Express, React, and NodeJS stack.
+FuelEfficient is built on a MySQL, Express, React, and NodeJS stack. A Python script is used to populate and update the DB using the EPA Fuel Economy Dataset.
 ### DB
-Test
+The DB Updater Python script (found in `./DB Updater`) takes the following steps to populate the MySQL database with vehicles from the Fuel Economy dataset:
+1. hi
+2. hi
+downloads and reads the Fuel Economy Dataset without writing it to disk. It then reads the downloaded `vehicles.csv` file using Pandas, and limits the dataset's scope to just the year/make/model/variation/fuelType/mpg of each car. 
 ### Backend
 | Route | Params | Type | Description |
 | --- | --- | -- | -- |
