@@ -29,7 +29,7 @@ Test
 | `/api/v1.0/makes` | year | `GET` | Retrieve all possible makes for a given year |
 | `/api/v1.0/models` | year, make | `GET` | Retrieve all models for a given year and make |
 | `/api/v1.0/model-variations` | year, make, model | `GET` | Retrieve all model variations for a given year/make/model |
-| `/api/v1.0/fuel-data` | year, make, model, variation | `GET` | Retrieve the MPG and mile calculations for a given year/make/model/variation |
+| `/api/v1.0/fuel-data` | year, make, model, variation | `GET` | Retrieve the MPG and mile calculations (100mi/10,000mi/150,00mi data used in data cards on the frontend) for a given year/make/model/variation |
 ### Frontend
 Test
 
