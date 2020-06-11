@@ -25,7 +25,7 @@ The DB Updater Python script (found in `./DB Updater`) takes the following steps
 1. Create a connection to the MySQL DB
 2. Create a cursor for MySQL DB uploads
 3. Download and parse appropriate fields in the Fuel Economy dataset using Pandas (without writing to disk)
-4. Parse Pandas dataframe line-by-line and upload each row to the MySQL DB, updating any rows if they already exist in the DB
+4. Parse Pandas dataframe and upload each row to the DB, updating any rows if they already exist in the DB
 5. Close up connection to DB
 
 ### Backend
