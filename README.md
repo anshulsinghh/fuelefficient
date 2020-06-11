@@ -10,7 +10,7 @@ The tool allows users to input the year, make, model, and variation of any vehic
   <img src="https://cdn.discordapp.com/attachments/577336178643042334/720185360151216148/unknown.png" alt="Personalized Feedback">
 </p>
 
-## Where's the Data Coming From?
+## Data Sources
 FuelEfficient sources vehicle data from the EPA's <a href="https://www.fueleconomy.gov/feg/download.shtml">Fuel Economy Dataset</a>. Each row in the dataset contains the year/make/model/variation/mpg of the car alongside other extraneous information. For calculations in each distance card (100mi/10,000mi/150,000mi) the factors below are used:
 
 - CO<sub>2</sub> emissions are calculated by multiplying the MPG by <i>19.64</i> (lbs of CO<sub>2</sub> per gallon of gas) - <a href="https://www.patagoniaalliance.org/wp-content/uploads/2014/08/How-much-carbon-dioxide-%20is-produced-by-burning-gasoline-and-diesel-fuel-FAQ-U.S.-Energy-Information-Administration-EIA.pdf">Source</a>
