@@ -22,9 +22,12 @@ FuelEfficient sources vehicle data from the EPA's <a href="https://www.fuelecono
 FuelEfficient is built on a MySQL, Express, React, and NodeJS stack. A Python script is used to populate and update the DB using the EPA Fuel Economy Dataset.
 ### DB
 The DB Updater Python script (found in `./DB Updater`) takes the following steps to populate the MySQL database with vehicles from the Fuel Economy dataset:
-1. hi
-2. hi
-downloads and reads the Fuel Economy Dataset without writing it to disk. It then reads the downloaded `vehicles.csv` file using Pandas, and limits the dataset's scope to just the year/make/model/variation/fuelType/mpg of each car. 
+1. Create a connection to the MySQL DB
+2. Create a cursor for MySQL DB uploads
+3. Download and parse appropriate fields in the Fuel Economy dataset using Pandas (without writing to disk)
+4. Parse Pandas dataframe line-by-line and upload each row to the MySQL DB, updating any rows if they already exist in the DB
+5. Close up connection to DB
+
 ### Backend
 | Route | Params | Type | Description |
 | --- | --- | -- | -- |
