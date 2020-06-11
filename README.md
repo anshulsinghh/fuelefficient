@@ -25,11 +25,11 @@ Test
 ### Backend
 | Route | Params | Type | Description |
 | --- | --- | -- | -- |
-| `/api/v1.0/years` | none | `GET` | Retrieve every unique year of cars in the FuelEffcient DB |
-| `/api/v1.0/makes` | year | `GET` | N/A |
-| `/api/v1.0/models` | year, make | `GET` | N/A |
-| `/api/v1.0/model-variations` | year, make, model | `GET` | N/A |
-| `/api/v1.0/fuel-data` | year, make, model, variation | `GET` | N/A |
+| `/api/v1.0/years` | none | `GET` | Retrieve all unique car years in the DB |
+| `/api/v1.0/makes` | year | `GET` | Retrieve all possible makes for a given year |
+| `/api/v1.0/models` | year, make | `GET` | Retrieve all models for a given year and make |
+| `/api/v1.0/model-variations` | year, make, model | `GET` | Retrieve all model variations for a given year/make/model |
+| `/api/v1.0/fuel-data` | year, make, model, variation | `GET` | Retrieve the MPG and mile calculations for a given year/make/model/variation |
 ### Frontend
 Test
 
