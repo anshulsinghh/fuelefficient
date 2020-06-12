@@ -20,15 +20,18 @@ FuelEfficient sources vehicle data from the EPA's <a href="https://www.fuelecono
 
 ## How It Works
 FuelEfficient is built on a MySQL, Express, React, and NodeJS stack. A Python script is used to populate and update the DB using the EPA Fuel Economy Dataset.
+
 ### DB
 The DB Updater Python script (found in `./DB Updater`) takes the following steps to populate the MySQL database with vehicles from the Fuel Economy dataset:
 1. Create a connection to the MySQL DB
-2. Create a cursor for MySQL DB uploads
+2. Create a cursor for MySQL DB insertions
 3. Download and parse appropriate fields in the Fuel Economy dataset using Pandas (without writing to disk)
 4. Parse Pandas dataframe and upload each row to the DB, updating any rows if they already exist in the DB
 5. Close up connection to DB
 
 ### Backend
+REST API routes were created using Express (code in `./Server`). The server works with the MySQL DB to serve appropriate responses to each request (given the appropriate parameters). The route table is shown below:
+
 | Route | Params | Type | Description |
 | --- | --- | -- | -- |
 | `/api/v1.0/years` | none | `GET` | Retrieve all unique car years in the DB |
@@ -36,8 +39,13 @@ The DB Updater Python script (found in `./DB Updater`) takes the following steps
 | `/api/v1.0/models` | year, make | `GET` | Retrieve all models for a given year and make |
 | `/api/v1.0/model-variations` | year, make, model | `GET` | Retrieve all model variations for a given year/make/model |
 | `/api/v1.0/fuel-data` | year, make, model, variation | `GET` | Retrieve the MPG and mile calculations for a given year/make/model/variation |
+
 ### Frontend
-Test
+The frontend was built using React, and was built with a component based design process. The selector in particular is responsible for querying the appropriate routes in the Server. 
+
+For example, when the user selects the year of his car the frontend queries the makes given the year the user selected. It then displays the makes available for the given year for the user to choose.
+
+Frontend code and implementation can be found in `./Client`.
 
 ## Deployment
 ```
