@@ -48,6 +48,22 @@ For example, when the user selects the year of his car the frontend queries the 
 Frontend code and implementation can be found in `./Client`.
 
 ## Deployment
+FuelEfficient uses Docker to create a containerized production build of FuelEfficient. The Dockerfile for creating the production build can be found in `./Deployment`. The Dockerfile performs the following actions to build the project:
+1. Copy the client to a `./Client` folder in the working directory
+2. Remove any existing node_modules or build files from the copied client files
+3. Run `npm install` and `npm run build` to install Client dependencies, and create a production version of the React client
+4. Copy over the server code to the working directory (no subfolder)
+5. Install the server dependencies with `npm install`
+6. Expose port 4000 of the container
+7. Set the NODE_ENV environment variable to production, and start the server
+
+In the production version of FuelEfficient, the Server and Client are combined. The Server serves the built version of the client on routes that are not used by existing API routes. The client queries the API routes while it's being run. 
+
+The Dockerfile was built into an image, which was pushed onto Docker Hub. The Docker Hub image was used in the `./Deployment/Dockerrun.aws.json` file, which contains instructions for AWS Elastic Beanstalk on which Docker Hub image to use, and what container port to host port passthroughs to use. The `Dockerrun.aws.json` file was locally uploaded to AWS Elastic Beanstalk to deploy the FuelEfficient code.
+
+The database for FuelEfficient was deployed beforehand, and runs on a simple AWS RDS MySQL instance. The database was populated by running the `./DB Updater` script locally.
+
+## Running the Code
 ```
 CREATE TABLE `vehicles` (
   `year` int(5) unsigned NOT NULL,
@@ -59,4 +75,3 @@ CREATE TABLE `vehicles` (
   PRIMARY KEY (`identifier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
-## Running the Code
