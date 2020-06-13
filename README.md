@@ -66,18 +66,18 @@ The database for FuelEfficient was deployed beforehand, and runs on a simple AWS
 ## Running the Code
 <details><summary><b>Show test</b></summary>
 1. Install preset:
-    ```sh
-    $ npm install --save-dev size-limit @size-limit/preset-big-lib
-    ```
+  
+  ```
+  CREATE TABLE `vehicles` (
+    `year` int(5) unsigned NOT NULL,
+    `make` varchar(30) NOT NULL DEFAULT '',
+    `model` varchar(30) NOT NULL DEFAULT '',
+    `variation` varchar(40) NOT NULL DEFAULT '',
+    `mpg` int(11) NOT NULL,
+    `identifier` varchar(150) NOT NULL DEFAULT '',
+    PRIMARY KEY (`identifier`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+  
 </details>
-```
-CREATE TABLE `vehicles` (
-  `year` int(5) unsigned NOT NULL,
-  `make` varchar(30) NOT NULL DEFAULT '',
-  `model` varchar(30) NOT NULL DEFAULT '',
-  `variation` varchar(40) NOT NULL DEFAULT '',
-  `mpg` int(11) NOT NULL,
-  `identifier` varchar(150) NOT NULL DEFAULT '',
-  PRIMARY KEY (`identifier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```
+
