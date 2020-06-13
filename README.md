@@ -64,6 +64,12 @@ The Dockerfile was built into an image, which was pushed onto Docker Hub. The Do
 The database for FuelEfficient was deployed beforehand, and runs on a simple AWS RDS MySQL instance. The database was populated by running the `./DB Updater` script locally.
 
 ## Running the Code
+<details><summary><b>Show test</b></summary>
+1. Install preset:
+    ```sh
+    $ npm install --save-dev size-limit @size-limit/preset-big-lib
+    ```
+</details>
 ```
 CREATE TABLE `vehicles` (
   `year` int(5) unsigned NOT NULL,
