@@ -85,5 +85,12 @@ After setting up the table in the MySQL DB, run the `./DB Updater/script.py` scr
 
 Now that the DB is ready, you can choose to run FuelEfficient's server and client in isolated processes - or run FuelEfficient in its production version, where the server and client are merged. 
 ### Isolated Processes
-
+1. Run `npm install` in both `./Server` and `./Client` to install required dependencies
+2. Modify `./Server/server.js` to point to the MySQL DB instance
+3. Run `npm start` in `./Server`, and query a server route to make sure it's running (it defaults to port 4000)
+4. Modify the `./Client/src/api/index.js` file's url variable to point to the url of the server (make sure to append the `/api/v1.0` tag to the end of the new url)
+5. Run `npm start` in the `./Client` folder and view FuelEfficient in your browser
 ### Production
+1. Run `docker build -t [INSERT IMAGE TAG HERE] -f Deployment/Dockerfile .` in the root level of FuelEfficient
+2. Run the built image by running `docker run -p 4000:4000 [IMAGE TAG HERE]` in the root level of FuelEfficient
+3. Navigate to `localhost:4000` to view FuelEfficient in your browser!
