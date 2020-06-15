@@ -8,3 +8,5 @@ Client/build
 DB_Updater/__pycache__
 DB_Updater/env
 DB_Updater/utilities/__pycache__
+
+.secrets
