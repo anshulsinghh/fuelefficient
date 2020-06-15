@@ -10,10 +10,10 @@ app.use(cors())
 app.use(require('./Routes'))
 
 const pool = mysql.createPool({
-  host: 'test-db-2.crpalwy0pful.us-west-1.rds.amazonaws.com',
-  user: 'root',
-  password: '***REMOVED***',
-  database: 'fuelefficient-data'
+  host: '',
+  user: '',
+  password: '',
+  database: ''
 })
 
 module.exports = pool
