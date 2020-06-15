@@ -93,12 +93,13 @@ Make sure to fill in MySQL connection details in `./Server/server.js` beforehand
 3. Run `npm start` in `./Server`, and query a server route to make sure it's running (it defaults to port 4000)
 4. Modify the `./Client/src/api/index.js` file's url variable to point to the url of the server (make sure to append the `/api/v1.0` tag to the end of the new url)
 5. Run `npm start` in the `./Client` folder and view FuelEfficient in your browser
+
 ### Production
 1. Run `docker build -t [INSERT IMAGE TAG HERE] -f Deployment/Dockerfile .` in the root level of FuelEfficient
 2. Run the built image by running `docker run -p 4000:4000 [IMAGE TAG HERE]` in the root level of FuelEfficient
 3. Navigate to `localhost:4000` to view FuelEfficient in your browser!
 
-#### Deployment
-1. If you're going to deploy FuelEfficient on your own, make sure to push the built Docker image onto Docker Hub
-2. Then put the username/image details in the Dockerrun.aws.json file
-3. Then you can upload the file to Elastic Beanstalk and deploy FuelEfficient to AWS
+### Deployment
+1. If you're going to deploy FuelEfficient on your own, make sure to push the built Docker image onto Docker Hub (follow step 1 of the Production section beforehand)
+2. Put the username/image details in the `./Deployment/Dockerrun.aws.json` file
+3. Upload the `./Deployment/Dockerrun.aws.json` file to Elastic Beanstalk and deploy FuelEfficient to AWS
