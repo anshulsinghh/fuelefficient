@@ -81,9 +81,12 @@ CREATE TABLE `vehicles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-After setting up the table in the MySQL DB, run the `./DB Updater/script.py` script to populate the database with vehicles from the fuel economy dataset (make sure to install the dependencies in `./DB Updater/requirements.txt` beforehand).
+After setting up the table in the MySQL DB, run the `./DB Updater/script.py` script to populate the database with vehicles from the fuel economy dataset (make sure to install the dependencies in `./DB Updater/requirements.txt`, and input MySQL connection details in `./DB Updater/utilities/connect_db.py` beforehand).
 
-Now that the DB is ready, you can choose to run FuelEfficient's server and client in isolated processes - or run FuelEfficient in its production version, where the server and client are merged. 
+Now that the DB is ready, you can choose to run FuelEfficient's server and client in isolated processes - or run FuelEfficient in its production version, where the server and client are merged.
+
+Make sure to fill in MySQL connection details in `./Server/server.js` beforehand.
+
 ### Isolated Processes
 1. Run `npm install` in both `./Server` and `./Client` to install required dependencies
 2. Modify `./Server/server.js` to point to the MySQL DB instance
@@ -94,3 +97,8 @@ Now that the DB is ready, you can choose to run FuelEfficient's server and clien
 1. Run `docker build -t [INSERT IMAGE TAG HERE] -f Deployment/Dockerfile .` in the root level of FuelEfficient
 2. Run the built image by running `docker run -p 4000:4000 [IMAGE TAG HERE]` in the root level of FuelEfficient
 3. Navigate to `localhost:4000` to view FuelEfficient in your browser!
+
+#### Deployment
+1. If you're going to deploy FuelEfficient on your own, make sure to push the built Docker image onto Docker Hub
+2. Then put the username/image details in the Dockerrun.aws.json file
+3. Then you can upload the file to Elastic Beanstalk and deploy FuelEfficient to AWS
