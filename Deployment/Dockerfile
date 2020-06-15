@@ -23,6 +23,3 @@ EXPOSE 4000
 # State that we're in production, and run the server file
 ENV NODE_ENV=production
 CMD ["node", "server.js"]
-
-# docker build -t anshulsingh/fuelefficient-production -f Deployment/Dockerfile . (run in FuelEfficient directory)
-# docker run -p 4000:4000 anshulsingh/fuelefficient-production
