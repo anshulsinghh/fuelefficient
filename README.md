@@ -104,7 +104,10 @@ Make sure to fill in MySQL connection details in `./Server/server.js` beforehand
 2. Put the username/image details in the `./Deployment/Dockerrun.aws.json` file
 3. Upload the `./Deployment/Dockerrun.aws.json` file to Elastic Beanstalk and deploy FuelEfficient to AWS
 
-## Packages Used
+## Dependencies
+| Package | Use |
+| --- | --- |
+| `/api/v1.0/years` | none |
 ### Backend
 - ExpressJS - used for setting REST API routes
 - MySQL2 - used for DB queries
