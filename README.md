@@ -105,20 +105,23 @@ Make sure to fill in MySQL connection details in `./Server/server.js` beforehand
 3. Upload the `./Deployment/Dockerrun.aws.json` file to Elastic Beanstalk and deploy FuelEfficient to AWS
 
 ## Dependencies
+### Backend
 | Package | Use |
 | --- | --- |
-| `/api/v1.0/years` | none |
-### Backend
-- ExpressJS - used for setting REST API routes
-- MySQL2 - used for DB queries
-- Morgan - used for monitoring API queries
+| ExpressJS | Setting REST API routes |
+| MySQL2 | Querying MySQL DB |
+| Morgan | Printing/monitoring API queries |
 
 ### Frontend
-- ReactJS - used for state management and component orchestration
-- MaterialUI - used for creating/styling basic components and site layout
-- Axios - used for querying the backend API
-- React-scroll-to-component - used for scrolling to data cards on mobile layouts
+| Package | Use |
+| --- | --- |
+| ReactJS | State management and component orchestration |
+| MaterialUI | Creating/styling components and site layout |
+| Axios | Querying the backend API |
+| React-scroll-to-component | Scrolling to data cards on small screens |
 
 ### DB Updater
-- Pandas - used for creating data frames from the Fuel Economy Dataset
-- Mysql-connector - used for connecting and querying the DB
+| Package | Use |
+| --- | --- |
+| Pandas | Data frames from Fuel Economy Dataset and filtering unwanted data |
+| Mysql-connector | Connecting and querying the DB |
