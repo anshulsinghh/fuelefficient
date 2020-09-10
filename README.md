@@ -18,7 +18,7 @@ FuelEfficient sources vehicle data from the EPA's <a href="https://www.fuelecono
 - An airliner releases <i>53lbs</i> of CO<sub>2</sub>  per mile - <a href="https://blueskymodel.org/air-mile">Source</a>. Since San Diego and Phoenix are <i>298.67mi</i> apart, this means that a flight between SD and PHX releases about <i>15,829.51lbs</i> of CO<sub>2</sub> - <a href="https://www.distance.to/Phoenix/San-Diego">Source</a>
 - A tree absorbs approximately <i>1 ton</i> of CO<sub>2</sub> by the time it reaches 40 years old. This is equivalent to <i>2000lbs</i> of CO<sub>2</sub> absorbed per 40 year old tree - <a href="https://www.co2meter.com/blogs/news/could-global-co2-levels-be-reduced-by-planting-trees">Source</a>
 
-## How It Works
+## How It Works 
 FuelEfficient is built on a MySQL, Express, React, and NodeJS stack. A Python script is used to populate and update the DB using the EPA Fuel Economy Dataset.
 
 ### DB
